@@ -46,6 +46,6 @@ find "$dir_inicial" -maxdepth 1 -type f | while read -r file; do
     mkdir -p "$novo_dir"
 
     # Move o arquivo para o novo diretório
-    mv "$file" "$novo_dir/"
+    mv -b "$file" "$novo_dir/"
     echo "O arquivo $(basename "$file") foi movido para $novo_dir"
 done

@@ -1,19 +1,20 @@
 #!/bin/bash
-
+lsblk
 # Mantenha o dispositivo de origem como sr0
 CDROM_DEVICE="/dev/sr0"
 CDROM_MOUNT=$(lsblk $CDROM_DEVICE --output MOUNTPOINT -n | head -n1)
 
 # Detecte o dispositivo de destino montado
-DEST_DEVICE=$(df | grep '/dev/sdc1' | awk '{print $1}')
+DEST_DEVICE=$(df | grep '/dev/sdb1' | awk '{print $1}')
 
 # Defina o diretório de origem
 DEST_DIR=$(df | grep -m 1 "$DEST_DEVICE" | awk '{print $6}')
-echo destino $DEST_DIR
+# echo destino $DEST_DIR
 
 # Verifique se o CD-ROM está montado
 if [ -z "$CDROM_MOUNT" ]; then
     echo "Nenhum CD-ROM montado encontrado em /dev/sr0"
+    eject
     exit 1
 fi
 

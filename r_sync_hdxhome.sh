@@ -1,5 +1,5 @@
 #!/bin/bash
-
+lsblk
 # Detecte o dispositivo de destino montado
 DEST_DEVICE=$(df | grep '/dev/sdc1' | awk '{print $1}')
 echo $DEST_DEVICE
