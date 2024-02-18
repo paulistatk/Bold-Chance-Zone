@@ -1,12 +1,13 @@
 #!/bin/bash
+
 lsblk
+
 # Verifique se os parâmetros de origem e destino foram fornecidos
 if [ "$#" -ne 2 ]; then
     echo "Por favor, forneça dois parâmetros: a origem e o destino, conforme saida do lsblk acima."
     exit 1
 fi
 
-lsblk
 # Mantenha o dispositivo de origem como sr0
 CDROM_DEVICE="/dev/$1"
 if [ -z "$CDROM_DEVICE" ]; then
