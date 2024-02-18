@@ -25,7 +25,7 @@ find "$dir_inicial" -mindepth 1 -maxdepth 1 -type d | while read -r dir; do
     fi
     # Encontra a extensão de arquivo mais comum
     extensao_comum=$(find "$dir" -type f | rev | cut -d. -f1 | rev | sort | uniq -c | sort -rn | head -n1 | awk '{print $2}' | tr '[:lower:]' '[:upper:]')
-    echo "No diretório $(basename "$dir"), a extensão de arquivo mais comum é $extensao_comum"
+    # echo "No diretório $(basename "$dir"), a extensão de arquivo mais comum é $extensao_comum"
 
     # Cria um novo diretório com o nome da extensão mais comum
     novo_dir="$dir_inicial/_$extensao_comum"
