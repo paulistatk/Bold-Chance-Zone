@@ -32,7 +32,7 @@ find "$dir_inicial" -mindepth 1 -maxdepth 1 -type d | while read -r dir; do
     mkdir -p "$novo_dir"
 
     # Move o diretório para o novo diretório
-    mv "$dir" "$novo_dir/"
+    mv -b "$dir" "$novo_dir/"
     echo "O diretório $(basename "$dir") foi movido para $novo_dir"
 done | sort -rn
 
