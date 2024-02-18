@@ -7,6 +7,14 @@
 
 # Diretório onde estão os arquivos executáveis
 diretorio="$1"
+# Diretório inicial
+dir_inicial="$diretorio"
+
+# Verifica se o diretório existe
+if [ ! -d "$dir_inicial" ]; then
+    echo "O diretório $dir_inicial não existe."
+    exit 1
+fi
 
 # Para cada arquivo no diretório
 for arquivo in "$diretorio"/*; do
