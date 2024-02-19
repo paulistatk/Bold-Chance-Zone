@@ -41,8 +41,6 @@ if [ -z "$DEST_DIR" ]; then
 fi
 echo DEST_DIR $DEST_DIR
 
-# Restante do script...
-
 # Verifique se o CD-ROM está montado
 if [ -z "$CDROM_MOUNT" ]; then
     echo "Nenhum CD-ROM montado encontrado em /dev/sr0"
