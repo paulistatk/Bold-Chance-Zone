@@ -62,20 +62,20 @@ if [ "$3" == "-r" ]; then
     if [ -n "$4" ]; then
         TIMEOUT=$(($4 * 60))
         echo sudo timeout $TIMEOUT ddrescue -n -R -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE
-        sudo timeout $TIMEOUT ddrescue -n -R -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE 
+        sudo timeout $TIMEOUT ddrescue -n -R -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE
     else
         echo sudo ddrescue -n -R -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE
-        sudo ddrescue -n -R -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE 
+        sudo ddrescue -n -R -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE
     fi
 else
     # Verifique se o tempo limite foi fornecido
     if [ -n "$3" ]; then
         TIMEOUT=$(($3 * 60))
         echo sudo timeout $TIMEOUT ddrescue -n -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE
-        sudo timeout $TIMEOUT ddrescue -n -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE 
+        sudo timeout $TIMEOUT ddrescue -n -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE
     else
         echo sudo ddrescue -n -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE
-        sudo ddrescue -n -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE 
+        sudo ddrescue -n -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE
     fi
 fi
 
