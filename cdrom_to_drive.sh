@@ -92,5 +92,7 @@ sudo rm $ISO_IMAGE $LOG_FILE
 
 # Imprima uma mensagem quando a sincronização estiver concluída
 echo "Sincronização concluída! rsync -av --progress $MOUNT_POINT/ $DEST_DIR"
+
 mpg123 sunflower-street-drumloop-85bpm-163900.mp3
+
 eject
