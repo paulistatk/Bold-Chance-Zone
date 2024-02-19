@@ -5,12 +5,11 @@ if [ "$#" -eq 0 ]; then
     echo "Uso: $0 <origem> <destino> [-R] [tempo limite]"
     echo "  origem: O dispositivo de origem (por exemplo, sr0 para /dev/sr0)"
     echo "  destino: O dispositivo de destino (por exemplo, sda1 para /dev/sda1)"
-    echo "  -R: (opcional) Se fornecido, ddrescue será executado em ordem reversa"
+    echo "  -r: (opcional) Se fornecido, ddrescue será executado em ordem reversa"
     echo "  tempo limite: (opcional) O tempo limite para ddrescue em minutos"
     exit 1
 fi
 
-# Mantenha o dispositivo de origem como sr0
 CDROM_DEVICE="/dev/$1"
 if [ -z "$CDROM_DEVICE" ]; then
     echo "Erro: CDROM_DEVICE não pode ser nulo ou vazio."
@@ -25,7 +24,6 @@ if [ -z "$CDROM_MOUNT" ]; then
 fi
 echo CDROM_MOUNT $CDROM_MOUNT
 
-# Detecte o dispositivo de destino montado
 DEST_DEVICE=$(df | grep "/dev/$2" | awk '{print $1}')
 if [ -z "$DEST_DEVICE" ]; then
     echo "Erro: DEST_DEVICE não pode ser nulo ou vazio."
@@ -33,7 +31,6 @@ if [ -z "$DEST_DEVICE" ]; then
 fi
 echo DEST_DEVICE $DEST_DEVICE
 
-# Defina o diretório de origem
 DEST_DIR=$(df | grep -m 1 "$DEST_DEVICE" | awk '{print $6}')
 if [ -z "$DEST_DIR" ]; then
     echo "Erro: DEST_DIR não pode ser nulo ou vazio."
