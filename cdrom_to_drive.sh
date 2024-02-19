@@ -10,8 +10,6 @@ if [ "$#" -eq 0 ]; then
     exit 1
 fi
 
-# Restante do script...
-
 # Mantenha o dispositivo de origem como sr0
 CDROM_DEVICE="/dev/$1"
 if [ -z "$CDROM_DEVICE" ]; then
