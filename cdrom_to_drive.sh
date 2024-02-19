@@ -1,12 +1,16 @@
 #!/bin/bash
-
 lsblk
-
-# Verifique se os parâmetros de origem e destino foram fornecidos
-if [ "$#" -ne 2 ]; then
-    echo "Por favor, forneça dois parâmetros: a origem e o destino, conforme saida do lsblk acima."
+# Se nenhum parâmetro for fornecido, exiba a mensagem de ajuda
+if [ "$#" -eq 0 ]; then
+    echo "Uso: $0 <origem> <destino> [-R] [tempo limite]"
+    echo "  origem: O dispositivo de origem (por exemplo, sr0 para /dev/sr0)"
+    echo "  destino: O dispositivo de destino (por exemplo, sda1 para /dev/sda1)"
+    echo "  -R: (opcional) Se fornecido, ddrescue será executado em ordem reversa"
+    echo "  tempo limite: (opcional) O tempo limite para ddrescue em minutos"
     exit 1
 fi
+
+# Restante do script...
 
 # Mantenha o dispositivo de origem como sr0
 CDROM_DEVICE="/dev/$1"
@@ -51,8 +55,29 @@ fi
 # Use ddrescue para criar uma imagem ISO do CD-ROM
 ISO_IMAGE="/tmp/cdrom_image.iso"
 LOG_FILE="/tmp/ddrescue.log"
-echo sudo ddrescue -n -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE
-sudo ddrescue -n -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE 
+
+# Verifique se a opção -R foi fornecida
+if [ "$3" == "-r" ]; then
+    # Verifique se o tempo limite foi fornecido
+    if [ -n "$4" ]; then
+        TIMEOUT=$(($4 * 60))
+        echo sudo timeout $TIMEOUT ddrescue -n -R -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE
+        sudo timeout $TIMEOUT ddrescue -n -R -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE 
+    else
+        echo sudo ddrescue -n -R -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE
+        sudo ddrescue -n -R -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE 
+    fi
+else
+    # Verifique se o tempo limite foi fornecido
+    if [ -n "$3" ]; then
+        TIMEOUT=$(($3 * 60))
+        echo sudo timeout $TIMEOUT ddrescue -n -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE
+        sudo timeout $TIMEOUT ddrescue -n -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE 
+    else
+        echo sudo ddrescue -n -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE
+        sudo ddrescue -n -b2048 $CDROM_DEVICE $ISO_IMAGE $LOG_FILE 
+    fi
+fi
 
 # Monte a imagem ISO
 MOUNT_POINT="/mnt/cdrom_image"
@@ -71,6 +96,5 @@ sudo rm $ISO_IMAGE $LOG_FILE
 
 # Imprima uma mensagem quando a sincronização estiver concluída
 echo "Sincronização concluída! rsync -av --progress $MOUNT_POINT/ $DEST_DIR"
-
-
+mpg123 sunflower-street-drumloop-85bpm-163900.mp3
 eject
