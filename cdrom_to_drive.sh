@@ -93,6 +93,17 @@ sudo rm $ISO_IMAGE $LOG_FILE
 # Imprima uma mensagem quando a sincronização estiver concluída
 echo "Sincronização concluída! rsync -av --progress $MOUNT_POINT/ $DEST_DIR"
 
-mpg123 sunflower-street-drumloop-85bpm-163900.mp3
+# Definindo o local do arquivo e a URL de download
+arquivo="/tmp/sunflower-street-drumloop-85bpm-163900.mp3"
+url="https://cdn.pixabay.com/download/audio/2023/08/26/audio_a6ee15a317.mp3?filename=sunflower-street-drumloop-85bpm-163900.mp3"
+
+# Verificando se o arquivo já existe
+if [ ! -f "$arquivo" ]; then
+    # Baixando o arquivo
+    curl -o "$arquivo" "$url"
+fi
+
+# Executando o arquivo
+mpg123 "$arquivo"
 
 eject
